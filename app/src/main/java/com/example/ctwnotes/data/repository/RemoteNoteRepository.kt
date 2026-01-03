@@ -23,12 +23,12 @@ class RemoteNoteRepository(
     }
 
     override suspend fun updateNote(note: Note) {
-        if (note.id == null) throw IllegalArgumentException("No ID in note: $note")
+        require(note.id != null)
         apiService.updateNote(note.id, note)
     }
 
     override suspend fun deleteNote(note: Note) {
-        if (note.id == null) throw IllegalArgumentException("No ID in note: $note")
+        require(note.id != null)
         apiService.deleteNote(note.id)
     }
 }

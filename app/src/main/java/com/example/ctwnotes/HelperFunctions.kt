@@ -1,7 +1,5 @@
 package com.example.ctwnotes
 
-import android.accessibilityservice.GestureDescription
-import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -37,20 +35,26 @@ val pastelStops = listOf(
 //    Color(0xFFC8E6C9), // green
 //    Color(0xFFBBDEFB), // blue
 //    Color(0xFFE1BEE7)  // purple
-    pastelColor(0f, 0f,1f),
-    pastelColor(0f, 1f,1f),
-    pastelColor(0f, 1f,0f),
-    pastelColor(1f, 1f,0f),
-    pastelColor(1f, 0f,0f),
-    pastelColor(1f, 0f,1f),
+    pastelColor(0f, 0f, 1f),
+    pastelColor(0f, 1f, 1f),
+    pastelColor(0f, 1f, 0f),
+    pastelColor(1f, 1f, 0f),
+    pastelColor(1f, 0f, 0f),
+    pastelColor(1f, 0f, 1f),
 )
 val pastelGradient = Brush.horizontalGradient(
-    colors = pastelStops
+    colors = pastelStops,
 )
 
-fun pastelColor(red: Float, green: Float, blue: Float, alpha: Float = 1f, isDarkTheme: Boolean = true): Color {
+fun pastelColor(
+    red: Float,
+    green: Float,
+    blue: Float,
+    alpha: Float = 1f,
+    isDarkTheme: Boolean = true,
+): Color {
     // Pastel colors: move values toward high brightness and low saturation
-    val base = if (isDarkTheme) 1f/3f else 2f/3f
+    val base = if (isDarkTheme) 1f / 3f else 2f / 3f
     val variance = 0.4f // how much it can vary above the base
 
     val r = base + red * variance
@@ -65,7 +69,7 @@ fun randomBGColor(): Color {
         Random.nextFloat(),
         Random.nextFloat(),
         Random.nextFloat(),
-        1f
+        1f,
     )
 }
 
@@ -74,7 +78,7 @@ fun lerpColor(start: Color, end: Color, fraction: Float): Color {
         red = lerp(start, end, fraction).red,
         green = lerp(start, end, fraction).green,
         blue = lerp(start, end, fraction).blue,
-        alpha = 1f
+        alpha = 1f,
     )
 }
 
@@ -89,13 +93,13 @@ fun pastelColorAt(fraction: Float): Color {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PastelGradientTrack(
-    state: SliderState
+    state: SliderState,
 ) {
     Canvas(
         Modifier
             .fillMaxWidth()
             // .height(40.dp)
-            .height(20.dp)
+            .height(20.dp),
     ) {
         val trackHeight = size.height
         val fullWidth = size.width
@@ -115,7 +119,7 @@ fun PastelGradientTrack(
         drawRoundRect(
             brush = pastelGradient,
             size = Size(fullWidth * fraction, trackHeight),
-            cornerRadius = CornerRadius(trackHeight / 3)
+            cornerRadius = CornerRadius(trackHeight / 3),
         )
     }
 }
@@ -132,16 +136,14 @@ fun PastelThumb(state: SliderState) {
 
     Canvas(
         Modifier
-            .size(width = 22.dp, height = 44.dp) // your thick thumb size
+            .size(width = 22.dp, height = 44.dp), // your thick thumb size
     ) {
-        val w = size.width
-        val h = size.height
-        val radius = CornerRadius(h / 4f)
+        val radius = CornerRadius(size.height / 4f)
 
         // Filled rounded rect (the thumb body)
         drawRoundRect(
             color = fillColor,
-            cornerRadius = radius
+            cornerRadius = radius,
         )
 
         // Border
@@ -151,7 +153,7 @@ fun PastelThumb(state: SliderState) {
             cornerRadius = radius,
             style = Stroke(
                 width = 12f,
-            )
+            ),
         )
     }
 }
@@ -166,7 +168,7 @@ fun ActionIconButton(
 ) {
     IconButton(
         onClick = onClick,
-        modifier = modifier
+        modifier = modifier,
     ) {
         Icon(
             imageVector = icon,
@@ -181,7 +183,7 @@ fun ActionIconButton(
 fun <T> SwipeToRevealDelete(
     item: T,
     onDelete: (T) -> Unit,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val swipeState = rememberSwipeToDismissBoxState()
 
@@ -195,7 +197,7 @@ fun <T> SwipeToRevealDelete(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
-                contentAlignment = Alignment.CenterEnd // delete icon on the right
+                contentAlignment = Alignment.CenterEnd, // delete icon on the right
             ) {
                 IconButton(
                     onClick = { onDelete(item) },
@@ -203,13 +205,13 @@ fun <T> SwipeToRevealDelete(
                     Icon(
                         imageVector = Icons.Filled.Delete,
                         contentDescription = "Delete",
-                        tint = Color.Red
+                        tint = Color.Red,
                     )
                 }
             }
         },
         content = {
             content()
-        }
+        },
     )
 }

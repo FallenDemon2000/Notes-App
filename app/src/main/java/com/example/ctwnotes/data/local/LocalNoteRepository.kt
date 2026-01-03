@@ -5,20 +5,17 @@ import com.example.ctwnotes.data.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 
 class LocalNoteRepository(
-    private val noteDao: NoteDao
+    private val noteDao: NoteDao,
 ) : NoteRepository {
 
-    override fun getAllNotes(): Flow<List<Note>> {
-        return noteDao.getAllNotes()
-    }
+    override fun getAllNotes(): Flow<List<Note>> =
+        noteDao.getAllNotes()
 
-    override fun getNoteById(id: Int): Flow<Note?> {
-        return noteDao.getNoteById(id)
-    }
+    override fun getNoteById(id: Int): Flow<Note?> =
+        noteDao.getNoteById(id)
 
-    override suspend fun addNote(note: Note)  {
+    override suspend fun addNote(note: Note) =
         noteDao.addNote(note)
-    }
 
     override suspend fun updateNote(note: Note) {
         noteDao.updateNote(note)

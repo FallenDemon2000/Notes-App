@@ -39,10 +39,10 @@ import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDateTime
 import kotlin.random.Random
 
+@Suppress("detekt:LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CTWNotesApp() {
-
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
     var showBottomSheet by rememberSaveable { mutableStateOf(false) }
@@ -60,7 +60,7 @@ fun CTWNotesApp() {
                 icon = {
                     Icon(
                         imageVector = Icons.Filled.Add,
-                        contentDescription = btnText
+                        contentDescription = btnText,
                     )
                 },
                 onClick = {
@@ -73,16 +73,15 @@ fun CTWNotesApp() {
         NoteLazyList(
             noteList = notesUiState.notes,
             onRefresh = { viewModel.getAllNotes() },
-            deleteNote = { viewModel.deleteNote(it) },
             modifier = Modifier
                 .padding(16.dp) // manual side padding cause innerPadding doesn't have it
                 .padding(innerPadding)
-                .fillMaxSize()
+                .fillMaxSize(),
         )
         if (showBottomSheet) {
             ModalBottomSheet(
                 onDismissRequest = { showBottomSheet = false },
-                sheetState = sheetState
+                sheetState = sheetState,
             ) {
                 val insideSheetMod = Modifier
                     .padding(16.dp, 4.dp)
@@ -94,19 +93,19 @@ fun CTWNotesApp() {
                     onValueChange = { viewModel.updateTitle(it) },
                     label = { Text(noteTitleLabel) },
                     shape = RoundedCornerShape(12.dp),
-                    modifier = insideSheetMod.fillMaxWidth()
+                    modifier = insideSheetMod.fillMaxWidth(),
                 )
                 OutlinedTextField(
                     value = notesUiState.noteDescription,
                     onValueChange = { viewModel.updateDescription(it) },
                     label = { Text(noteDescriptionLabel) },
                     shape = RoundedCornerShape(12.dp),
-                    modifier = insideSheetMod.fillMaxWidth()
+                    modifier = insideSheetMod.fillMaxWidth(),
                 )
                 // Text("Slider State: ${sliderState.value}")
                 Row(
                     modifier = insideSheetMod,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     Slider(
                         state = sliderState,
@@ -123,24 +122,23 @@ fun CTWNotesApp() {
                     Button(
                         onClick = {
                             val newNote = Note(
-                                //id = noteList.size, // Python server does numbers the notes
+                                // id = noteList.size, // Python server does numbers the notes
                                 title = notesUiState.noteTitle,
                                 content = notesUiState.noteDescription,
                                 date = LocalDateTime.now().toString(),
                                 color = pastelColorAt(sliderState.value).value.toLong(),
                             )
-                            //noteList.add(newNote)
+                            // noteList.add(newNote)
                             viewModel.addNote(newNote)
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
-                                if (!sheetState.isVisible) { showBottomSheet = false }
+                                if (!sheetState.isVisible) showBottomSheet = false
                             }
                         },
                         shape = RoundedCornerShape(12.dp),
-                        //modifier = insideSheetMod,
+                        // modifier = insideSheetMod,
                     ) {
                         Text("Add Note")
                     }
-
                 }
             }
         }

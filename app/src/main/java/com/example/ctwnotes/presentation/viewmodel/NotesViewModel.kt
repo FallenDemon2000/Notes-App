@@ -1,9 +1,7 @@
 package com.example.ctwnotes.presentation.viewmodel
 
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ctwnotes.R
 import com.example.ctwnotes.data.model.Note
 import com.example.ctwnotes.data.repository.NoteRepository
 import com.example.ctwnotes.presentation.uistate.NotesUiState
@@ -21,27 +19,27 @@ class NotesViewModel(
     private val _uiState = MutableStateFlow(NotesUiState())
     val uiState: StateFlow<NotesUiState> = _uiState
 
+    init {
+        getAllNotes()
+    }
+
     fun updateTitle(title: String) {
         _uiState.update {
-            it.copy( noteTitle = title )
+            it.copy(noteTitle = title)
         }
     }
 
     fun updateDescription(description: String) {
         _uiState.update {
-            it.copy( noteDescription = description )
+            it.copy(noteDescription = description)
         }
-    }
-
-    init {
-        getAllNotes()
     }
 
     fun getAllNotes() {
         viewModelScope.launch {
             noteRepository.getAllNotes().collect { repoNotes ->
                 _uiState.update { state ->
-                    state.copy( notes = repoNotes )
+                    state.copy(notes = repoNotes)
                 }
             }
         }
@@ -51,7 +49,7 @@ class NotesViewModel(
         viewModelScope.launch {
             noteRepository.getNoteById(id).collect { repoNote ->
                 _uiState.update { state ->
-                    state.copy(  )
+                    state.copy()
                 }
             }
         }
@@ -62,8 +60,8 @@ class NotesViewModel(
             noteRepository.addNote(note)
             delay(250L)
             getAllNotes()
-            
-            _uiState.update { state -> 
+
+            _uiState.update { state ->
                 state.copy(
                     noteTitle = "",
                     noteDescription = "",

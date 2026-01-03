@@ -15,22 +15,22 @@ interface NoteApiService {
 
     @GET("notes/{id}")
     suspend fun getNoteById(
-        @Path("id") id: Int
-    ) : Note?
+        @Path("id") id: Int,
+    ): Note?
 
     @POST("notes")
     suspend fun addNote(
-        @Body note: Note
-    ) : Note
+        @Body note: Note,
+    ): Note
 
     @PUT("notes/{id}")
     suspend fun updateNote(
         @Path("id") id: Int,
-        @Body note: Note
-    ) : Note
+        @Body note: Note,
+    ): Note
 
     @DELETE("notes/{id}")
     suspend fun deleteNote(
-        @Path("id") id: Int
+        @Path("id") id: Int,
     )
 }

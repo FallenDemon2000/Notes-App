@@ -24,7 +24,7 @@ val remoteStoreModule = module {
     single<NoteApiService> { get<Retrofit>().create(NoteApiService::class.java) }
     single<NoteRepository> {
         RemoteNoteRepository(
-            apiService = get<NoteApiService>()
+            apiService = get<NoteApiService>(),
         )
     }
 }
@@ -34,15 +34,15 @@ val localStoreModule = module {
         Room.databaseBuilder(
             androidContext(),
             NoteDatabase::class.java,
-            "note_database"
+            "note_database",
         ).build()
     }
-    single<NoteDao> { get<NoteDatabase>().noteDao()}
+    single<NoteDao> { get<NoteDatabase>().noteDao() }
     single<NoteRepository> { LocalNoteRepository(get<NoteDao>()) }
 }
 
 val uiModule = module {
     viewModel { NotesViewModel(get()) }
-    //viewModel { NoteDetailViewModel(get(), get()) }
-    //viewModel { ThemeViewModel(get()) }
+    // viewModel { NoteDetailViewModel(get(), get()) }
+    // viewModel { ThemeViewModel(get()) }
 }

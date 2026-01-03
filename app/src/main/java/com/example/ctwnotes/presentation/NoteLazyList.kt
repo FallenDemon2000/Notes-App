@@ -12,16 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.ctwnotes.ActionIconButton
-import com.example.ctwnotes.SwipeToRevealDelete
 import com.example.ctwnotes.data.model.Note
-import com.example.ctwnotes.randomBGColor
 
 @Composable
 fun NoteLazyList(
     noteList: List<Note>,
-    onRefresh: () -> Unit = {  },
-    deleteNote: (Note) -> Unit,
     modifier: Modifier = Modifier,
+    onRefresh: () -> Unit = { },
 ) {
     PullToRefreshBox(
         isRefreshing = false,
@@ -33,7 +30,7 @@ fun NoteLazyList(
         ) {
             items(
                 noteList,
-                key = { it.id!! }
+                key = { it.id!! },
             ) { note ->
                 SwipeableCardWithActions(
                     isRevealed = note.areOptionsRevealed,
@@ -42,14 +39,14 @@ fun NoteLazyList(
                             onClick = {},
                             icon = Icons.Filled.Delete,
                             tint = Color.Red,
-                            modifier = Modifier.fillMaxHeight()
+                            modifier = Modifier.fillMaxHeight(),
                         )
-                    }
+                    },
                 ) {
                     NoteCard(
                         title = note.title,
                         content = note.content,
-                        color = note.color ?: randomBGColor().value.toLong(),
+                        color = note.color,
                     )
                 }
 //                SwipeToRevealDelete(

@@ -20,15 +20,13 @@ fun NoteCard(
     title: String = "Note Title",
     content: String = "Note Content",
     color: Long = randomBGColor().value.toLong(),
-    id: Int = 0,
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color(color.toULong())),
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
     ) {
-
         Column(
-            modifier = modifier.padding(16.dp)
+            modifier = modifier.padding(16.dp),
         ) {
             Text(
                 text = title,
@@ -36,7 +34,7 @@ fun NoteCard(
             )
             Spacer(modifier = modifier.padding(8.dp))
             Text(
-                text = content
+                text = content,
             )
         }
     }
