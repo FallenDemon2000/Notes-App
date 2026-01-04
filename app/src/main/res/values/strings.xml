@@ -2,4 +2,9 @@
     <string name="app_name">Notes App</string>
     <string name="note_description">Description</string>
     <string name="note_title">Title</string>
+    
+    <!-- Icons Content Descriptions -->
+    <string name="add_icon">Add Icon Button</string>
+    <string name="delete_icon">Delete Icon Button</string>
+    <string name="restore_icon">Restore Icon Button</string>
 </resources>
