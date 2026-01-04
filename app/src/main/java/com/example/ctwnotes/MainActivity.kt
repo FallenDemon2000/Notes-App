@@ -6,17 +6,17 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.ctwnotes.presentation.CTWNotesApp
 import com.example.ctwnotes.presentation.NoteCard
-import com.example.ctwnotes.presentation.ui.theme.CTWNotesTheme
+import com.example.ctwnotes.presentation.NotesApp
+import com.example.ctwnotes.presentation.ui.theme.NotesAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CTWNotesTheme {
-                CTWNotesApp()
+            NotesAppTheme {
+                NotesApp()
             }
         }
     }
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun NoteCardPreview() {
-    CTWNotesTheme {
+    NotesAppTheme {
         NoteCard()
     }
 }
@@ -33,7 +33,7 @@ fun NoteCardPreview() {
 @Preview(showBackground = true)
 @Composable
 fun NoteCardAppPreview() {
-    CTWNotesTheme {
+    NotesAppTheme {
         NoteCard(
             title = "Title Test",
             content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
