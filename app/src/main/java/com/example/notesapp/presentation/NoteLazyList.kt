@@ -29,7 +29,7 @@ fun NoteLazyList(
             modifier = modifier,
         ) {
             items(
-                noteList,
+                items = noteList,
                 key = { it.id!! },
             ) { note ->
                 SwipeableCardWithActions(
@@ -45,7 +45,7 @@ fun NoteLazyList(
                 ) {
                     NoteCard(
                         title = note.title,
-                        content = note.content,
+                        description = note.description,
                         color = note.color,
                     )
                 }
@@ -58,7 +58,7 @@ fun NoteLazyList(
 //                ) {
 //                    NoteCard(
 //                        title = note.title,
-//                        content = note.content,
+//                        description = note.description,
 //                        color = note.color
 //                    )
 //                }

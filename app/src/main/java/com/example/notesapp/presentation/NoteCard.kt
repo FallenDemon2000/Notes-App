@@ -16,10 +16,10 @@ import com.example.notesapp.randomBGColor
 
 @Composable
 fun NoteCard(
+    title: String,
+    description: String,
+    color: Long,
     modifier: Modifier = Modifier,
-    title: String = "Note Title",
-    content: String = "Note Content",
-    color: Long = randomBGColor().value.toLong(),
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color(color.toULong())),
@@ -34,7 +34,7 @@ fun NoteCard(
             )
             Spacer(modifier = modifier.padding(8.dp))
             Text(
-                text = content,
+                text = description,
             )
         }
     }

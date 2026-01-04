@@ -121,13 +121,11 @@ fun NotesApp() {
                     Button(
                         onClick = {
                             val newNote = Note(
-                                // id = noteList.size, // Python server does numbers the notes
                                 title = notesUiState.noteTitle,
-                                content = notesUiState.noteDescription,
+                                description = notesUiState.noteDescription,
                                 date = LocalDateTime.now().toString(),
                                 color = pastelColorAt(sliderState.value).value.toLong(),
                             )
-                            // noteList.add(newNote)
                             viewModel.addNote(newNote)
                             scope.launch { sheetState.hide() }.invokeOnCompletion {
                                 if (!sheetState.isVisible) showBottomSheet = false
