@@ -6,13 +6,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ctwnotes"
+    namespace = "com.example.notesapp"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.ctwnotes"
+        applicationId = "com.example.notesapp"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material.icons)
     implementation(libs.androidx.google.fonts)
+    implementation(libs.androidx.compose.navigation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
