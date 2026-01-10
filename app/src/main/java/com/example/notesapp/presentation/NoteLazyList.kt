@@ -1,28 +1,27 @@
 package com.example.notesapp.presentation
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.notesapp.ActionIconButton
 import com.example.notesapp.data.model.Note
+import com.example.notesapp.presentation.model.NoteAction
 import com.example.notesapp.presentation.ui.theme.NotesAppTheme
 import com.example.notesapp.randomBGColor
 
 @Composable
 fun NoteLazyList(
     noteList: List<Note>,
+    onDeleteNote: (Note) -> Unit,
     modifier: Modifier = Modifier,
-    onRefresh: () -> Unit = { },
+    onRestoreNote: (Note) -> Unit = {},
+    onRefresh: () -> Unit = {},
 ) {
     PullToRefreshBox(
         isRefreshing = false,
@@ -36,36 +35,19 @@ fun NoteLazyList(
                 items = noteList,
                 key = { it.id!! },
             ) { note ->
-                SwipeableCardWithActions(
-                    isRevealed = note.areOptionsRevealed,
-                    actions = {
-                        ActionIconButton(
-                            onClick = {},
-                            icon = Icons.Filled.Delete,
-                            tint = Color.Red,
-                            modifier = Modifier.fillMaxHeight(),
-                        )
-                    },
+                val actions = mutableMapOf(NoteAction.DELETE to { onDeleteNote(note) })
+                if (note.isDeleted) actions[NoteAction.RESTORE] = { onRestoreNote(note) }
+                SwipeableSurface(
+                    actions = actions,
+                    modifier = Modifier.fillMaxWidth(),
                 ) {
                     NoteCard(
                         title = note.title,
                         description = note.description,
                         color = note.color,
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 }
-//                SwipeToRevealDelete(
-//                    item = note,
-//                    onDelete = {
-//                        //noteList.remove(note)
-//                        deleteNote(note)
-//                    }
-//                ) {
-//                    NoteCard(
-//                        title = note.title,
-//                        description = note.description,
-//                        color = note.color
-//                    )
-//                }
             }
         }
     }
@@ -73,6 +55,7 @@ fun NoteLazyList(
 
 @Preview
 @Composable
+@Suppress("detekt:UnusedPrivateMember")
 private fun NoteCardPreview() {
     NotesAppTheme {
         NoteLazyList(
@@ -83,10 +66,9 @@ private fun NoteCardPreview() {
                     description = "Note Description",
                     date = "yesterday",
                     color = randomBGColor().value.toLong(),
-                    isDeleted = false,
-                    areOptionsRevealed = false,
                 )
             },
+            onDeleteNote = {},
             modifier = Modifier.fillMaxSize(),
         )
     }

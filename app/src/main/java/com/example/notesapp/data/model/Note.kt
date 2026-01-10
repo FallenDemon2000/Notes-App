@@ -11,5 +11,4 @@ data class Note(
     val date: String = "",
     val color: Long,
     val isDeleted: Boolean = false,
-    val areOptionsRevealed: Boolean = false,
 )
