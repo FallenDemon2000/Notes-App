@@ -24,6 +24,8 @@ complexity:
     ignoreDeprecated: false
     ignorePrivate: false
     ignoreOverridden: true
+  LongMethod:
+    active: false
 
 coroutines:
   active: true
@@ -76,6 +78,8 @@ formatting:
     active: true
   TrailingCommaOnDeclarationSite:
     active: true
+  AnnotationOnSeparateLine:
+    active: false
 
 empty-blocks:
   active: true

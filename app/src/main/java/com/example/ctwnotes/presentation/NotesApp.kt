@@ -39,12 +39,11 @@ import org.koin.androidx.compose.koinViewModel
 import java.time.LocalDateTime
 import kotlin.random.Random
 
-@Suppress("detekt:LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CTWNotesApp() {
-    val sheetState = rememberModalBottomSheetState()
+fun NotesApp() {
     val scope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by rememberSaveable { mutableStateOf(false) }
     val sliderState = rememberSliderState(value = Random.nextFloat())
 
